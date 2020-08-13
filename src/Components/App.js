@@ -6,7 +6,9 @@ import Router from "./Router";
 
 export default () => (
   <ThemeProvider theme={Theme}>
-    <GlobalStyles />
-    <Router isLoggedIn={false} />
+    <>
+      <GlobalStyles />
+      <Router isLoggedIn={false} />
+    </>
   </ThemeProvider>
 );
