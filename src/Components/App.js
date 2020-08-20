@@ -29,6 +29,7 @@ export default () => {
       <Wrapper>
         <GlobalStyles />
         <Router isLoggedIn={isLoggedIn} />
+        <Footer />
       </Wrapper>
     </ThemeProvider>
   );
