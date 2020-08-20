@@ -11,17 +11,10 @@ export default () => {
   const firstName = useInput("");
   const lastName = useInput("");
   const email = useInput("");
-  const [requestSecret] = useMutation(LOG_IN, {
-    update: (_, { data }) => {
-      const { requestSecret } = data;
-      if (!requestSecret) {
-        toast.error("You don't have an account yet, create new one");
-        setTimeout(() => setAction("signUp"), 3000);
-      }
-    },
+  const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { email: email.value },
   });
-  const [createAccount] = useMutation(CREATE_ACCOUNT, {
+  const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
     variables: {
       email: username.value,
       username: email.value,
@@ -30,11 +23,21 @@ export default () => {
     },
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (action === "logIn") {
       if (email.value !== "") {
-        requestSecret();
+        try {
+          const {
+            data: { requestSecret },
+          } = await requestSecretMutation();
+          if (!requestSecret) {
+            toast.error("You don't have an account yet. Create new one.");
+            setTimeout(() => setAction("signUp"), 3000);
+          }
+        } catch {
+          toast.error("Can't request secret. Please try again.");
+        }
       } else {
         toast.error("Email is required");
       }
@@ -45,7 +48,19 @@ export default () => {
         firstName.value !== "" &&
         lastName.value !== ""
       ) {
-        createAccount();
+        try {
+          const {
+            data: { createAccount },
+          } = await createAccountMutation();
+          if (!createAccount) {
+            toast.error("Can't create account");
+          } else {
+            toast.success("Account created! Log In now");
+            setTimeout(() => setAction("logIn"), 3000);
+          }
+        } catch {
+          toast.error("Can't create account. Please try again.");
+        }
       } else {
         toast.error("All field are required");
       }
