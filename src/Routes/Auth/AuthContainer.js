@@ -29,13 +29,13 @@ export default () => {
     },
   });
 
-  const confirmSecretMutation = useMutation(CONFIRM_SECRET, {
+  const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
     variables: {
       email: email.value,
       secret: secret.value,
     },
   });
-  const localLogInMutation = useMutation(LOCAL_LOG_IN);
+  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +92,8 @@ export default () => {
           } else {
             throw Error();
           }
-        } catch {
+        } catch (e) {
+          console.log(e);
           toast.error("Can't confirm secret, check again");
         }
       }
