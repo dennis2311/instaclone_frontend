@@ -38,7 +38,7 @@ export default () => {
   const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //prevent website from being refreshed when submitted.
     if (action === "logIn") {
       if (email.value !== "") {
         try {
