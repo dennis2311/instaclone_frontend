@@ -8,6 +8,7 @@ import Search from "../Routes/Search";
 import Profile from "../Routes/Profile";
 
 const LoggedInRoutes = () => (
+  //switch means : it would render only one thing under it
   <Switch>
     <Route exact path="/" component={Feed}></Route>
     <Route path="/explore" component={Explore}></Route>

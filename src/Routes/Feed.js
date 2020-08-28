@@ -21,7 +21,7 @@ const FEED_QUERY = gql`
         id
         url
       }
-      likeCount
+      # likeCount
       isLiked
       comments {
         id
