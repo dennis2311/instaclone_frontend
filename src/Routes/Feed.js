@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -20,7 +21,7 @@ const FEED_QUERY = gql`
         id
         url
       }
-
+      likeCount
       isLiked
       comments {
         id
@@ -39,7 +40,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-heigh: 80vh;
+  min-height: 70vh;
 `;
 
 export default () => {
@@ -47,6 +48,9 @@ export default () => {
   console.log(data);
   return (
     <Wrapper>
+      <Helmet>
+        <title>Feed | instaClone</title>
+      </Helmet>
       {loading && <Loader />}
       {!loading &&
         data &&
@@ -55,6 +59,8 @@ export default () => {
           <Post
             key={post.id}
             id={post.id}
+            location={post.locatoin}
+            caption={post.caption}
             user={post.user}
             files={post.files}
             likeCount={post.likeCount}
