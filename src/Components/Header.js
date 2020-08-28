@@ -73,7 +73,6 @@ const ME = gql`
 export default withRouter(({ history }) => {
   const search = useInput("");
   const { data } = useQuery(ME);
-  console.log(data);
   const onSearchSubmit = (e) => {
     e.preventDefault();
     history.push(`/search?term=${search.value}`);
@@ -103,7 +102,7 @@ export default withRouter(({ history }) => {
               <User />
             </HeaderLink>
           ) : (
-            <HeaderLink to={data.me.username}>
+            <HeaderLink to={"username"}>
               <User />
             </HeaderLink>
           )}
