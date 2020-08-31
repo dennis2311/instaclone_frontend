@@ -50,6 +50,15 @@ const PostContainer = ({
     }
   };
 
+  const onKeyUp = (e) => {
+    const keyCode = e;
+    if (keyCode === 13) {
+      e.preventDefault();
+      addCommentMutation();
+    } else {
+    }
+  };
+
   return (
     <PostPresenter
       user={user}
@@ -65,6 +74,7 @@ const PostContainer = ({
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
+      onKeyUp={onKeyUp}
     />
   );
 };
