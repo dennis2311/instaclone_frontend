@@ -59,13 +59,13 @@ export default () => {
           <Post
             key={post.id}
             id={post.id}
-            location={post.locatoin}
-            caption={post.caption}
             user={post.user}
             files={post.files}
             likeCount={post.likeCount}
             isLiked={post.isLiked}
             comments={post.comments}
+            caption={post.caption}
+            location={post.location}
             createdAt={post.createdAt}
           />
         ))}

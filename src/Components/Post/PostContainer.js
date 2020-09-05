@@ -13,9 +13,9 @@ const PostContainer = ({
   likeCount,
   isLiked,
   comments,
-  createdAt,
   caption,
   location,
+  createdAt,
 }) => {
   const [isLikedS, setIsLiked] = useState(isLiked);
   const [likeCountS, setLikeCount] = useState(likeCount);
@@ -55,12 +55,12 @@ const PostContainer = ({
     if (keyCode === 13) {
       e.preventDefault();
       addCommentMutation();
-    } else {
     }
   };
 
   return (
     <PostPresenter
+      key={id}
       user={user}
       files={files}
       likeCount={likeCountS}
@@ -79,7 +79,7 @@ const PostContainer = ({
   );
 };
 
-PostPresenter.propTypes = {
+PostContainer.propTypes = {
   id: PropTypes.string.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
