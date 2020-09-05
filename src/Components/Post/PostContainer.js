@@ -20,6 +20,7 @@ const PostContainer = ({
   const [isLikedS, setIsLiked] = useState(isLiked);
   const [likeCountS, setLikeCount] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState([]);
   const comment = useInput("");
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id },
@@ -50,11 +51,19 @@ const PostContainer = ({
     }
   };
 
-  const onKeyUp = (e) => {
-    const keyCode = e;
-    if (keyCode === 13) {
-      e.preventDefault();
-      addCommentMutation();
+  const onKeyPress = async (event) => {
+    const { which } = event;
+    if (which === 13) {
+      event.preventDefault();
+      try {
+        const {
+          data: { addComment },
+        } = await addCommentMutation();
+        setSelfComments([...selfComments, addComment]);
+        comment.setValue("");
+      } catch {
+        toast.error("Can't send comment");
+      }
     }
   };
 
@@ -74,7 +83,8 @@ const PostContainer = ({
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
-      onKeyUp={onKeyUp}
+      onKeyPress={onKeyPress}
+      selfComments={selfComments}
     />
   );
 };
